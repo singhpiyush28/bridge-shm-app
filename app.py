@@ -19,17 +19,18 @@ st.subheader("Upload OR Record Vehicle Audio")
 # --------- RECORD AUDIO ---------
 audio = audiorecorder("Click to record", "Click to stop recording")
 
-recorded_file = None
-
 if len(audio) > 0:
     st.success("Recording complete")
 
-    # Save recording as WAV
+    # Save recording
     with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as f:
         f.write(audio.export().read())
-        recorded_file = f.name
+        file_path = f.name
 
-    st.audio(recorded_file)
+    # Save to session (multiple recordings)
+    st.session_state.recordings.append(("Recorded " + str(len(st.session_state.recordings)+1), file_path))
+
+    st.audio(file_path)
 
 # --------- FILE UPLOAD ---------
 uploaded_files = st.file_uploader(
