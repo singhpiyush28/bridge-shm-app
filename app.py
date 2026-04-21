@@ -11,6 +11,9 @@ from classification import classify_bridge
 
 # NEW: audio recorder
 from audiorecorder import audiorecorder
+# Initialize session storage
+if "recordings" not in st.session_state:
+    st.session_state.recordings = []
 
 st.title("Bridge Vibration Analyzer (SHM System)")
 
