@@ -31,6 +31,9 @@ if len(audio) > 0:
     st.session_state.recordings.append(("Recorded " + str(len(st.session_state.recordings)+1), file_path))
 
     st.audio(file_path)
+# --------- CLEAR RECORDINGS BUTTON ---------
+if st.button("Clear Recordings"):
+    st.session_state.recordings = []
 
 # --------- FILE UPLOAD ---------
 uploaded_files = st.file_uploader(
@@ -42,9 +45,9 @@ results = []
 
 files_to_process = []
 
-# Add recorded file if exists
-if recorded_file:
-    files_to_process.append(("Recorded Audio", recorded_file))
+# Add all recorded files
+for rec in st.session_state.recordings:
+    files_to_process.append(rec)
 
 # Add uploaded files
 if uploaded_files:
