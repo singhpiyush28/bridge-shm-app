@@ -6,3 +6,4 @@ librosa
 soundfile
 pandas
 streamlit-audiorecorder
+ffmpeg-python
