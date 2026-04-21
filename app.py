@@ -101,3 +101,31 @@ if files_to_process:
         ax2.set_xlabel("Frequency (Hz)")
         ax2.set_ylabel("Amplitude")
         st.pyplot(fig2)
+# ===== AFTER LOOP ENDS =====
+
+if results:
+    df = pd.DataFrame(results)
+
+    st.subheader("Comparison Table")
+    st.dataframe(df)
+
+    # Comparison graph
+    compare_signals(df)
+
+    # -------- FINAL DECISION DISPLAY --------
+    st.subheader("Bridge Condition Analysis")
+
+    for result in results:
+        st.write(f"Vehicle: {result['Vehicle']}")
+        st.write(f"Dominant Frequency: {result['Dominant Frequency (Hz)']:.2f} Hz")
+        st.write(f"Peak Amplitude: {result['Peak Amplitude']:.2f}")
+
+        # Status color display
+        if result['Status'] == "Unsafe":
+            st.error("Unsafe Condition ⚠️")
+        elif result['Status'] == "Moderate":
+            st.warning("Moderate Condition ⚠️")
+        else:
+            st.success("Safe Condition ✅")
+
+        st.markdown("---")
